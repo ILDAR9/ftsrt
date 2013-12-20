@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table>
+        <tbody class="table">
+        <tr>
+            <td style="height: 120px;width: 60px"><img src="{{ MEDIA_URL }}/{{ coach.avatar }}" class="thumbnail">
+            </td>
+            <td class="span8">
+                <table cellspacing="1" cellpadding="3">
+                    <tbody>
+                    <tr>
+                        <td>
+                            ФИО
+                        </td>
+                        <td>
+                            {{ coach.fio }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Должность
+                        </td>
+                        <td>
+                            {{ coach.position }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Телефон
+                        </td>
+                        <td>
+                            {{ coach.telephone }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            E-Mail
+                        </td>
+                        <td>{{ coach.email }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

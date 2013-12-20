@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3 class="offset3">Руководство ФТС Республики Татарстан</h3>
+    <table class="offset2">
+        <tbody class="table">
+        {% for person in administration %}
+            <tr>
+                <td style="height: 120px;width: 60px"><img src="{{ MEDIA_URL }}/{{ person.coach.avatar }}" class="thumbnail">
+                </td>
+                <td class="span8">
+                    <table cellspacing="1" cellpadding="3">
+                        <tbody>
+                        <tr>
+                            <td>
+                                ФИО
+                            </td>
+                            <td>
+                                {{ person.coach.fio }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Должность
+                            </td>
+                            <td>
+                                {{ person.coach.position }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Телефон
+                            </td>
+                            <td>
+                                {{ person.coach.telephone }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                E-Mail
+                            </td>
+                            <td>{{ person.coach.email }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load  url_generator %}
+{% block content %}
+    <table class="table table-bordered">
+        <thead>
+        <th>ТСК</th>
+        <th>Контакты</th>
+        <th>Руководители / Тренеры</th>
+        </thead>
+        <tbody>
+        {% for club in clubs %}
+            <tr>
+                <td><a href="{% url club club.id %}">{{ club.name }}</a></td>
+                <td>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>Телефон</td>
+                            <td>{{ club.telephone }} {% if club.telephone2 %}
+                                <br>{{ club.telephone2 }}
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>E-Mail</td>
+                            <td>{{ club.email }}</td>
+                        </tr>
+                        <tr>
+                            <td>Сайт</td>
+                            <td>{% if club.url %}
+                                <a href="{{ club.url }}">{{ club.url }}</a>
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Адрес</td>
+                            <td>
+                                <a href="{% map_url club %}">
+                                    <small>гор. {% club_city club %}, {{ club.address }}</small>
+                                </a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>Рук.</td>
+                            <td><a href="coach/{{ club.director_id }}">{{ club.director }}</a></td>
+                        </tr>
+                        <tr>
+                            <td>Тр.</td>
+                            <td>
+                                {% for coach in club.coaches.all %}
+                                    <a href="{% url coach coach.id %}">{{ coach.fio }}</a><br>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

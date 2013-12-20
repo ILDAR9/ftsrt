@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="offset3">Авторизация</h1>
+
+    {% if user.is_authenticated %}
+        Что такое, {{ user.username }}? Вы же уже авторизорваны.
+        Впрочем, всегда можно <a href="{% url auth_logout %}">выйти</a>.<br/><br/>
+    {% else %}
+        {% if form.non_field_errors %}
+            <div class="text-error">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <form method="post" class="offset2" action="">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <p>{{ field.label_tag }}</p>
+                <div class="row">
+                    <div class=offset3>
+                        {% for error in field.errors %}
+                            <p class="text-error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="span3"> {{ field }}</div>
+
+                    {% if field.help_text %}
+                        <div >{{ field.help_text }}</div>{% endif %}
+                </div>
+            {% endfor %}
+
+            <input type="submit" value="Вход" class="btn-success">
+        </form>
+
+        <br/><br/>
+        <ul class="offset1">
+            <li><a href="{% url auth_password_reset %}">Забыли пароль?</a></li>
+            <li><a href="{% url registration_register %}">Регистрация</a></li>
+        </ul>
+    {% endif %}
+{% endblock %}
+{% block script_addon %}
+    <script type="text/javascript">
+        document.getElementById('id_username').focus()
+    </script>
+{% endblock %}

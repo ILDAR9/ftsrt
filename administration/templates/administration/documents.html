@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <ul id="myTab" class="nav nav-tabs">
+            <li class=""><a href="#load_doc" data-toggle="tab">Загрузить документ</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade" id="load_doc">
+                <form action="{% url load_file %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name='document' value="Выбрать"/>
+                    <input type="submit" value='Загрузить'/>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+    <table style="width: 700px" class="offset1 table table-condensed">
+        <thead>
+        <th>№</th>
+        <th>Название / Доп. информация</th>
+        <th>Файл</th>
+        </thead>
+        <tbody>
+
+        <tr>
+            {% for doc in documents %}
+                <td>
+                    <p>{{ forloop.counter }}</p>
+                </td>
+                <td>
+                    <blockquote>
+                        <h5>{{ doc.name }}</h5>
+                        <small>{{ doc.info }}</small>
+                    </blockquote>
+                </td>
+                <td>
+                    <a href="{{ MEDIA_URL }}/{{ doc.document }}" slacc="span1">
+                        <img src="{{ STATIC_URL }}administration/img/doc.png"
+                             alt=""></a>
+                </td>
+                </tr>
+                </tbody>
+            {% endfor %}
+    </table>
+{% endblock %}

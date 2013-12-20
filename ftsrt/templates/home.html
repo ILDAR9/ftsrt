@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load easy_news_tags %}
+{% block style_addon %}
+{% endblock %}
+{% block script_addon %}
+
+{% endblock %}
+{% block content %}
+    <div class='row'>
+        <h4 class="offset1">Новости ФТС Республики Татарстан</h4>
+    <div class="tabbable tabs-left span8">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#news" data-toggle="tab">Последние новости</a></li>
+            <li class=""><a href="#news_calendar" data-toggle="tab">Календарь новостей</a></li>
+            <li class=""><a href="{% url any-club %}">Танцевальный клуб</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="news">
+                {% show_news 5 %}
+            </div>
+            <div class="tab-pane" id="news_calendar">
+                {% calendar %}
+            </div>
+        </div>
+    </div>
+        <img  class="img-rounded" style="width: 220px;; height: 300px; margin-left: 10px" src="http://rudocs.exdat.com/pars_docs/tw_refs/532/531050/531050_html_2eb31c05.jpg" alt="Логотип">
+    </div>
+{% endblock %}

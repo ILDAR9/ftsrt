@@ -1,0 +1,24 @@
+<div class="news-list">
+    {% if object_list %}
+        {% for object in object_list %}
+            <div class="accordion" id="accordion2">
+                <div class="accordion-group">
+                    <div class="accordion-heading row">
+                        <a class="accordion-toggle span2" data-toggle="collapse" data-parent="#accordion2"
+                           href="#{{ forloop.counter }}">
+                            <div class="news-date">{{ object.date|date:"d" }} {{ object.month }} {{ object.date|date:"Y" }}</div>
+                        </a>
+                        <div class="news-title" class="4"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></div>
+                    </div>
+                    <div id="{{ forloop.counter }}" class="accordion-body collapse" style="height: 0px; ">
+                        <div class="accordion-inner">
+                            <div class="news-short">{{ object.short|safe }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="news-empty">Нет новостей</div>
+    {% endif %}
+</div>

@@ -1,0 +1,68 @@
+img.logo {
+    float: left;
+    height: 100px;
+    width: 100px;
+}
+
+.note {
+    font-size: 10px;
+    width: 50%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+img.logotip {
+    height: 250px;
+    width: 100px;
+}
+
+footer {
+    padding-left: 15px;
+    padding-top: 8px;
+    color: #666;
+    background-color: #040404;
+    min-height: 110px;
+    border-top: 4px solid #777777;
+}
+
+footer .footer_top {
+    margin-left: 20px;
+}
+
+footer .footer_bottom {
+    margin-top: 30px;
+}
+
+.header {
+    background: url("../img/base/header-bg.jpg");
+    margin-top: 30px;
+}
+
+.header h4 {
+    color: orange;
+}
+
+.header small {
+    font-style: italic;
+    font-size: 12px;
+    color: orange;
+}
+
+.header blockquote {
+    margin-left: 20px
+}
+
+.news-date {
+    font-size: x-small;
+    color: #858f97;
+}
+
+.calendar_sqr {
+    width: 30px;
+    height: 30px;
+    margin: 3px 3px 3px 3px;
+}
+
+.calendar_day {
+    text-decoration: #080808;
+    font-style: oblique;
+}

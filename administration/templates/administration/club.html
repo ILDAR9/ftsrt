@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load  url_generator %}
+{% block content %}
+    <table class="table table-striped">
+        <thead>
+        <th>ТСК</th>
+        <th>Контакты</th>
+        <th>Руководители / Тренеры</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ club.name }}</td>
+            <td>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>Телефон</td>
+                        <td>{{ club.telephone }} {% if club.telephone2 %}
+                            <br>{{ club.telephone2 }}
+                        {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>E-Mail</td>
+                        <td>{{ club.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Сайт</td>
+                        <td>{% if club.url %}
+                            <a href="{{ club.url }}">{{ club.url }}</a>
+                        {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Адрес</td>
+                        <td><a href="{% map_url club %}">
+                            <small>гор. {% club_city club %}, {{ club.address }}</small>
+                        </a></td>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>Рук.</td>
+                        <td><a href="{% url coach club.director_id %}">{{ club.director }}</a></td>
+                    </tr>
+                    <tr>
+                        <td>Тр.</td>
+                        <td>
+                            {% for coach in club.coaches.all %}
+                                <a href="{% url coach coach.id %}">{{ coach.fio }}</a><br>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+
+
+    <ul id="myTab" class="nav nav-tabs">
+        <li class=""><a href="#students" data-toggle="tab">Спортсмены</a></li>
+        <li class=""><a href="#pairs" data-toggle="tab">Пары</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade" id="students">
+            <table style='width: 700px' class="table table-striped offset1">
+                <thead>
+                <th>№ СТСР</th>
+                <th>ФИО</th>
+                <th>ДР</th>
+                <th>St / La</th>
+                <th>Разр.</th>
+                </thead>
+                <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td><a href="{% stsr_url student %}">{{ student.stsr_id }}</a></td>
+                        <td>{{ student.fio }}</td>
+                        <td>{{ student.datebirth }}</td>
+                        <td>{{ student.standart_level }} / {{ student.latin_level }}</td>
+                        <td>{{ student.category }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+        <div class="tab-pane fade" id="pairs">
+            {% if pairs %}
+                <table style='width: 700px' class="table offset1">
+                    <thead>
+                    <th>№ СТСР</th>
+                    <th>ФИО</th>
+                    <th>ДР</th>
+                    <th>St / La</th>
+                    <th>Разр.</th>
+                    </thead>
+                    <tbody>
+                    {% for pair in pairs %}
+                        <tr>
+                            <td><a href="{% stsr_url pair.student_male %}">{{ pair.student_male.stsr_id }}</a><br>
+                                <a href="{% stsr_url pair.student_female %}">{{ pair.student_female.stsr_id }}</a>
+                            </td>
+                            <td>{{ pair.student_male.fio }}<br>
+                                {{ pair.student_female.fio }}
+                            </td>
+                            <td>{{ pair.student_male.datebirth }}<br>
+                                {{ pair.student_female.datebirth }}
+                            </td>
+                            <td>{{ pair.student_male.standart_level }} / {{ pair.student_male.latin_level }}<br>
+                                {{ pair.student_female.standart_level }} / {{ pair.student_female.latin_level }}
+                            </td>
+                            <td>{{ pair.student_male.category }}<br>
+
+                                {{ pair.student_female.category }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+                {% else %}
+                <h3 class="offset2">Нет ни одной пары</h3>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+{% endblock %}

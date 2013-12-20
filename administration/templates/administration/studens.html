@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% load  url_generator%}
+{% block content %}
+    {% for student in students %}
+        <p>{{ student.fio }}</p>
+        <a href="{% stsr_url student %}">{{ student.stsr_id }}</a>
+    {% endfor %}
+{% endblock %}

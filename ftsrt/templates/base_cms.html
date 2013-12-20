@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+{% load cms_tags sekizai_tags %}
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{{ request.current_page.get_title }} Казань клуб спортивно-бальных танцев "Бригантина"</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Ildar">
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/menu/reset.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/menu/style.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/mystyle.css">
+    {% render_block "css" %}
+</head>
+<body style='background: url("{{ STATIC_URL }}img/base/background.jpg")'>
+{% cms_toolbar %}
+<div id="menu_div">
+    <div id="navigation">
+        <div id="menu">
+            <ul id="nav">
+                <div class="span12 fixed_top">
+                    <a href="/"><img style="height: 30px; float: left;"
+                                     src="{{ STATIC_URL }}img/base/dance_icon.jpg"
+                                     alt="Logo"></a>
+                    <ul class="sf-js-enabled">
+
+
+                        <li><a href="/"><img src="{{ STATIC_URL }}img/base/pro_home.png" alt=""></a>
+                        </li>
+                        <li><a class="btn btn-inverse" href="{% url news_list  %}">Новости</a></li>
+                        <li class="btn-group">
+                            <a class="btn btn-inverse" href="#">Организация</a>
+                            <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown"><span
+                                    class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url info %}">О федерации</a></li>
+                                <li><a href="{% url director %}">Руководство</a></li>
+                                <li><a href="{% url docs %}">Документы</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a class="btn btn-inverse" href="{% url tournaments %}">Календарь</a></li>
+
+                        <li><a class="btn btn-inverse" href="{% url clubs %}">Танцевальные клубы</a></li>
+
+                        <li><a class="btn btn-inverse" href="{% url forum %}">Форум</a></li>
+
+                        <li class="btn-group">
+                            <a class="btn btn-inverse" href="">Галерея</a>
+                            <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown"><span
+                                    class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://www.youtube.com/user/danceTatarstan/videos">Видео</a></li>
+                                <li><a href="{% url photo-gallery %}">Фото</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </ul>
+
+        </div>
+        <!-- #menu END-->
+    </div>
+    <!-- #navigation END-->
+</div>
+<!-- #menu_div END-->
+
+<div class="container " id="top_page">
+    <div class="pull-right">
+        {% if user.is_authenticated %}
+            <div class="row">{{ user.username }} <a href="/accounts/logout" class='btn btn-info btn-small'>Выйти</a></div>
+        {% else %}
+            <a href="{% url auth_login  %}" class="btn btn-info btn-small">Авторизация</a>
+            <a href="{% url registration_register %}" class="btn btn-info btn-small">Регистрация</a>
+        {% endif %}
+    </div>
+    <div class="header">
+        <!-- Header -->
+        <blockquote>
+            <h4>Федерация Танцевального спорта Республики Татарстан</h4>
+
+            <small>Главное в танце - страсть, танец без страсти - всего лишь гимнастика.
+            </small>
+        </blockquote>
+    </div>
+    <!-- Content -->
+    <div class="well">
+        {% placeholder "main" %}
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+            <div class="footer_top span12 ">
+                <div class="offset8 span2">
+                    <a href="#"><img src="{{ STATIC_URL }}img/base/vk-logo.bmp" alt="группа вконтакте"></a>
+                </div>
+                <div class="span7">
+                    <ul>
+                        <li><a href="http://www.rusdsu.ru/">Официальный сайт федерации танцевального спорта</a></li>
+                        <li><a href="#">Карта сайта</a></li>
+                        <br>
+                        <li><a href="https://vk.com/id33827906">Created by</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="footer_bottom" class="row">
+                <div class="span12">
+                    © Федерация Танцевального спорта РТ
+                </div>
+            </div>
+        </footer>
+</div>
+    <script src="{{ STATIC_URL }}js/jquery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
+    {% render_block "js" %}
+</body>
+</html>

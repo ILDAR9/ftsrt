@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="tournaments" method="post" class='span10 offset2'>
+        {% csrf_token %}
+        <small class="span2">Выберите месяц и год</small>
+        <select name="ShowMonth" class="span2">
+            <option value="01">Январь</option>
+            <option value="02">Февраль</option>
+            <option value="03">Март</option>
+            <option value="04" selected="">Апрель</option>
+            <option value="05">Май</option>
+            <option value="06">Июнь</option>
+            <option value="07">Июль</option>
+            <option value="08">Август</option>
+            <option value="09">Сентябрь</option>
+            <option value="10">Октябрь</option>
+            <option value="11">Ноябрь</option>
+            <option value="12">Декабрь</option>
+            <option value="13">Весь календарь</option>
+        </select>
+        <select name="ShowYear" class="span2">
+            <option value="2012">2012</option>
+            <option value="2013" selected="">2013</option>
+        </select>
+        <input type="Submit" name="Submit" value="Показать" class="btn btn-info offset1 span2">
+    </form>
+    <table class="table table-bordered">
+        <thead>
+        <th>№</th>
+        <th>Дата</th>
+        <th>Название / Организатор</th>
+        <th>Инф.</th>
+        <th>рез.</th>
+        </thead>
+        <tbody>
+        <tr>
+            {% for tournament in tournaments %}
+                <td>
+                    <p>{{ forloop.counter }}</p>
+                </td>
+                <td>
+                    <p><small>от</small> {{ tournament.date_start|date:"d M" }}</p>
+                    <p><small>до</small> {{ tournament.date_end|date:"d M" }}</p>
+                </td>
+                <td>
+                    <p>{{ tournament.name }}{% if tournament.organizer %} /
+                        {{ tournament.organizer }}{% endif %}</p></div>
+                </td>
+                <td>
+                    {% if tournament.document %}<a href="{{ MEDIA_URL }}/{{ tournament.document }}">
+                        <img src="{{ STATIC_URL }}administration/img/doc.png"
+                             alt=""></a>{% endif %}
+                </td>
+                <td>{% if tournament.results_url %}
+                    <a href="{{ tournament.results_url }}"><img src="{{ STATIC_URL }}administration/img/results.png"
+                                                                alt=""></a>
+                {% endif %}</td>
+                </tr>
+                </tbody>
+            {% endfor %}
+    </table>
+
+
+{% endblock %}

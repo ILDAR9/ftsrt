@@ -1,0 +1,53 @@
+{% load i18n pybb_tags %}
+
+<div class='category'>
+    <blockquote style="margin-top: 10px">
+        <h4>Категория: <b style="color: red">{{ category.name }} {% if category.hidden %}[{% trans "Hidden" %}]{% endif %}</b></h4>
+    </blockquote>
+
+    <table class="table category-table">
+        <thead>
+            <tr class="forum-row head-row">
+                <th class="forum-name">
+                    Форумы
+                </th>
+                <th class="forum-topic-count">
+                    Темы
+                </th>
+                <th class="forum-post-count">
+                    Сообщения
+                </th>
+                <th class="forum-last-post">
+                    <small>Последнее сообщение</small>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for forum in category.forums_accessed|pybb_forum_unread:user %}
+            <tr class="success forum-row">
+                <td class="span6 forum-name {% if forum.unread %} forum-unread{% endif %}">
+                    <div class="state-indicator"></div>
+                    <a href="{{ forum.get_absolute_url }}">{{ forum.name }}</a> {% if forum.hidden %}[{% trans "Hidden" %}]{% endif %}
+                    <div class="forum-description">
+                        &nbsp&nbsp&nbsp{{ forum.description|safe }}
+                    </div>
+                </td>
+                <td class="span1 forum-topic-count">
+                    <p style="text-align:center;">{{ forum.topic_count }}</p>
+                </td>
+                <td class="span1 forum-post-count">
+                    <p style="text-align:center;">{{ forum.post_count }}</p>
+                </td>
+                <td class=" span2 2forum-last-post">
+                    {% if forum.updated %}
+                        {{ forum.updated|date:"d.m.Y H:i" }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <h3>{% trans "No forums created" %}</h3>
+            <a href="{% url admin:pybb_forum_add %}">{% trans "Add forum now" %}</a>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
